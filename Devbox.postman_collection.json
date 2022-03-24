@@ -1,0 +1,627 @@
+{
+	"info": {
+		"_postman_id": "8d95079b-d7f5-44e7-9095-92ea50a081df",
+		"name": "Devbox",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authorization",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var json = JSON.parse(responseBody); \r",
+							"tests[\"Get Azure AD Token\"] = !json.error && responseBody !== '' && responseBody !== '{}' && json.access_token !== ''; \r",
+							"postman.setEnvironmentVariable(\"bearerToken\", json.access_token); "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "client_id",
+							"value": "{{client_id}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "{{grant_type}}",
+							"type": "text"
+						},
+						{
+							"key": "resource",
+							"value": "{{resource}}",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{client_secret}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://login.microsoftonline.com/:tenant_id/oauth2/token",
+					"protocol": "https",
+					"host": [
+						"login",
+						"microsoftonline",
+						"com"
+					],
+					"path": [
+						":tenant_id",
+						"oauth2",
+						"token"
+					],
+					"variable": [
+						{
+							"key": "tenant_id",
+							"value": "11d0e217-264e-400a-8ba0-57dcc127d72d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReadCustomerGroups",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Ik1yNS1BVWliZkJpaTdOZDFqQmViYXhib1hXMCIsImtpZCI6Ik1yNS1BVWliZkJpaTdOZDFqQmViYXhib1hXMCJ9.eyJhdWQiOiJodHRwczovL2VzZDFtc29seWF4ZDA4LnBmbWwuZXNkLndhLmdvdiIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzExZDBlMjE3LTI2NGUtNDAwYS04YmEwLTU3ZGNjMTI3ZDcyZC8iLCJpYXQiOjE2NDA3NTQ4MDQsIm5iZiI6MTY0MDc1NDgwNCwiZXhwIjoxNjQwNzU4NzA0LCJhaW8iOiJFMlpnWUhqdjhuVFI1YzhmVGU3MFhCQmNuY1QySFFBPSIsImFwcGlkIjoiMzJjZTNjM2YtZmNjMS00NzUwLWIzZTEtNDNlNTY3ZmYwNmMxIiwiYXBwaWRhY3IiOiIxIiwiaWRwIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvMTFkMGUyMTctMjY0ZS00MDBhLThiYTAtNTdkY2MxMjdkNzJkLyIsIm9pZCI6IjUwZmUwMjhkLTM2NDgtNGMzMC04MWYyLWRjOGVmZDk5NmQ0ZSIsInJoIjoiMC5BUklBRi1MUUVVNG1Da0NMb0ZmY3dTZlhMVDg4empMQl9GQkhzLUZENVdmX0JzRVNBQUEuIiwic3ViIjoiNTBmZTAyOGQtMzY0OC00YzMwLTgxZjItZGM4ZWZkOTk2ZDRlIiwidGlkIjoiMTFkMGUyMTctMjY0ZS00MDBhLThiYTAtNTdkY2MxMjdkNzJkIiwidXRpIjoiVDVDVVJOcEZRa3UyYm1Xa200a1pBUSIsInZlciI6IjEuMCJ9.S4qBvesuFGNsUgQrJ5TffXM2oE35AdYsf4-iNIpgZJHIsNM5Th_youaf49rmXrLxwl6o0RdSr5OwIpU3d2rDE3WZ74evw5eZQ50ovlRhuu7WmWCh5OwlJkmrsZv6sPGCiB21N7GRPZ31UH2eMtt7WN_U437tHnge0RixOV3o8G4fbBRcXzAsBIyYSG7x9t_7obTjWK4n_BZs57nFyZvpYrWPlwKTqGjEmgbc6kWXBUAxpSdOquUf6CxmdivYr6SYExSUI8yDY3JIkcJoI0kR8J9Vy5YAuctTUlhwnGqlFdRonHF3TCReep1Y4OWstSwvN5Sdy0kSgr-u03_x0TTnng",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Authorization",
+							"value": "bearer {{bearerToken}}",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{resource}}/data/CustomerGroups",
+					"host": [
+						"{{resource}}"
+					],
+					"path": [
+						"data",
+						"CustomerGroups"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Customer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{bearerToken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n            \"InvoiceAccount\": \"Cust002\",\r\n            \"dataAreaId\": \"5400\",\r\n            \"CustomerGroupId\": \"REGULAR\",\r\n            \"CustomerAccount\": \"Cust002\",\r\n            \"PartyType\": \"Organization\",\r\n            \"OrganizationName\": \"Test002\",\r\n            \"SalesCurrencyCode\": \"USD\"\r\n}"
+				},
+				"url": {
+					"raw": "{{resource}}/data/CustomersV2",
+					"host": [
+						"{{resource}}"
+					],
+					"path": [
+						"data",
+						"CustomersV2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Customer",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{bearerToken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{                 \r\n    \"OrganizationName\": \"Test003\"\r\n}"
+				},
+				"url": {
+					"raw": "{{resource}}/data/CustomersV2(CustomerAccount='Cust002',dataAreaId='USMF)",
+					"host": [
+						"{{resource}}"
+					],
+					"path": [
+						"data",
+						"CustomersV2(CustomerAccount='Cust002',dataAreaId='USMF)"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Top 10 Customers",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{bearerToken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{resource}}/data/CustomersV2?$top=10",
+					"host": [
+						"{{resource}}"
+					],
+					"path": [
+						"data",
+						"CustomersV2"
+					],
+					"query": [
+						{
+							"key": "$top",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Customers with field list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{bearerToken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{resource}}/data/CustomersV2?$select=CustomerAccount,OrganizationName&$filter=OrganizationName eq 'TEST'",
+					"host": [
+						"{{resource}}"
+					],
+					"path": [
+						"data",
+						"CustomersV2"
+					],
+					"query": [
+						{
+							"key": "$top",
+							"value": "5",
+							"disabled": true
+						},
+						{
+							"key": "$orderby",
+							"value": "CustomerAccount",
+							"disabled": true
+						},
+						{
+							"key": "$select",
+							"value": "CustomerAccount,OrganizationName"
+						},
+						{
+							"key": "$filter",
+							"value": "OrganizationName eq 'TEST'"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filter Customer based on account",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{bearerToken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{resource}}/data/CustomersV2?$filter=CustomerAccount eq 'TEST001'",
+					"host": [
+						"{{resource}}"
+					],
+					"path": [
+						"data",
+						"CustomersV2"
+					],
+					"query": [
+						{
+							"key": "$filter",
+							"value": "CustomerAccount eq 'TEST001'"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Count number of customers",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{bearerToken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{resource}}/data/CustomersV2?$filter=OrganizationName eq 'TEST'&$select=CustomerAccount,OrganizationName&$count=true",
+					"host": [
+						"{{resource}}"
+					],
+					"path": [
+						"data",
+						"CustomersV2"
+					],
+					"query": [
+						{
+							"key": "$filter",
+							"value": "OrganizationName eq 'TEST'"
+						},
+						{
+							"key": "$select",
+							"value": "CustomerAccount,OrganizationName"
+						},
+						{
+							"key": "$count",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order Customers based on criteria",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "bearer {{bearerToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{resource}}/data/CustomersV2?$filter=OrganizationName eq 'TEST'&$top=5&$orderby=CustomerAccount&$select=CustomerAccount",
+					"host": [
+						"{{resource}}"
+					],
+					"path": [
+						"data",
+						"CustomersV2"
+					],
+					"query": [
+						{
+							"key": "$filter",
+							"value": "OrganizationName eq 'TEST'"
+						},
+						{
+							"key": "$top",
+							"value": "5"
+						},
+						{
+							"key": "$count",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "$orderby",
+							"value": "CustomerAccount"
+						},
+						{
+							"key": "$select",
+							"value": "CustomerAccount"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Service Group getActiveDimensionsFromLedger",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{bearerToken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{resource}}/api/services/FinancialDimensionServices/DimensionService/getActiveDimensionsFromLedger",
+					"host": [
+						"{{resource}}"
+					],
+					"path": [
+						"api",
+						"services",
+						"FinancialDimensionServices",
+						"DimensionService",
+						"getActiveDimensionsFromLedger"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fire Service Request getActiveDimensionsFromLedger",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{bearerToken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{resource}}/api/services/FinancialDimensionServices/DimensionService/getActiveDimensionsFromLedger",
+					"host": [
+						"{{resource}}"
+					],
+					"path": [
+						"api",
+						"services",
+						"FinancialDimensionServices",
+						"DimensionService",
+						"getActiveDimensionsFromLedger"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Service - Workflow",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{bearerToken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{                 \r\n    \"_workflowTypeName\": \"Definition\"\r\n}"
+				},
+				"url": {
+					"raw": "{{resource}}/api/services/WorkflowService/SysWorkflowConfigurationService/getWorkflowTypeCategory?",
+					"host": [
+						"{{resource}}"
+					],
+					"path": [
+						"api",
+						"services",
+						"WorkflowService",
+						"SysWorkflowConfigurationService",
+						"getWorkflowTypeCategory"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Customers using parameter alias",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{bearerToken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{resource}}/data/CustomersV2?$select=CustomerAccount,OrganizationName&$top=3&$filter=startswith('CustomerAccount', 'TEST' )",
+					"host": [
+						"{{resource}}"
+					],
+					"path": [
+						"data",
+						"CustomersV2"
+					],
+					"query": [
+						{
+							"key": "$select",
+							"value": "CustomerAccount,OrganizationName"
+						},
+						{
+							"key": "$count",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "$top",
+							"value": "3"
+						},
+						{
+							"key": "$filter",
+							"value": "startswith('CustomerAccount', 'TEST' )"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read customer groups using expand option",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{bearerToken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{resource}}/data/CustomersV2?$expand=Products($filter=DiscontinuedDate eq null)",
+					"host": [
+						"{{resource}}"
+					],
+					"path": [
+						"data",
+						"CustomersV2"
+					],
+					"query": [
+						{
+							"key": "$expand",
+							"value": "Products($filter=DiscontinuedDate eq null)"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Customer",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{bearerToken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{resource}}/data/CustomersV2(CustomerAccount='Cust002',dataAreaId='USMF')",
+					"host": [
+						"{{resource}}"
+					],
+					"path": [
+						"data",
+						"CustomersV2(CustomerAccount='Cust002',dataAreaId='USMF')"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
